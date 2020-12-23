@@ -78,7 +78,10 @@
         axios.get(baseUrl,{ 
           headers: {
             Accept: "*/*"
-          }
+          },
+            params: {
+                "warrant": "analyze me"
+            }
       })
       .then(function (res) {
         // handle success
@@ -98,8 +101,7 @@
           method: 'post',
           url: baseUrl,
           data: {
-            firstName: 'Fred',
-            lastName: 'Flintstone'
+            warrant: "save this warrant"
           },
             headers: {
             Accept: "*/*"
