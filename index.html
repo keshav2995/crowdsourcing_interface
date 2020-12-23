@@ -73,23 +73,25 @@
   </div>
 </div>
 <script>
-    // Make a request for a user with a given ID
-axios.get('http://127.0.0.1:5000/',{ 
+    function onClickAnalyzeSentences(){
+        axios.get('http://127.0.0.1:5000/',{ 
           headers: {
             Accept: "*/*"
           }
-  })
-  .then(function (res) {
-    // handle success
-    console.log(res.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+      })
+      .then(function (res) {
+        // handle success
+        console.log(res.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+}
+
 </script>
 </body>
 </html>
