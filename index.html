@@ -64,7 +64,7 @@
           </div>
             <div class="col s12">
               <button class="waves-effect waves-light btn" onclick="onClickAnalyzeSentences()">Analyse Sentence</button>
-              <button class="btn waves-effect waves-light" type="submit" name="action" onclick="onClickAnalyzeSentences()">Submit
+              <button class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit
                 <i class="material-icons right">send</i></button>
             </div>
         </div>
@@ -93,7 +93,7 @@
       });
 }
     
-    function onClickAnalyzeSentences(){
+    function saveSentences(){
         axios({
           method: 'post',
           url: baseUrl,
