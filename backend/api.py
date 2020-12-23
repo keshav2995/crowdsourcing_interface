@@ -10,15 +10,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
 db = SQLAlchemy(app)
 
 
-class User(db.Model):
+class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
-    email = db.Column(db.String, unique=True, nullable=False)
+    warrant = db.Column(db.String, unique=True, nullable=False)
 
 
 
 @app.route('/')
-def hello_world():
+def analyze():
     return jsonify({'score': 1})
 
 
