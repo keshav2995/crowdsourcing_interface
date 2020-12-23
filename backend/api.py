@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app, send_wildcard=True) 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
 db = SQLAlchemy(app)
@@ -19,13 +19,13 @@ def calculate(warrant):
     
     return {'score': 1, 'warrant': warrant}
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST', 'PUT'])
 def analyze():
     if request.method == 'GET':
         warrant = request.args.get('warrant', default="", type=str) # get the warrant to be analyzed
         score = calculate(warrant) # analyze the warrant and return the score
         return jsonify(score)
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         payload = request.json
         warrant = Warrant(payload.get('warrant')) # create the warrant db object
         db.session.add(warrant) # stage the warrant for saving

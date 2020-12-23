@@ -73,12 +73,13 @@
   </div>
 </div>
 <script>
-    var baseUrl = "http://127.0.0.1:5000/"
+    axios.defaults.baseURL = "http://127.0.0.1:5000";
+    axios.defaults.headers.common['Accept'] = "*/*";
+    axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
     function onClickAnalyzeSentences(){
-        axios.get(baseUrl,{ 
-          headers: {
-            Accept: "*/*"
-          },
+        axios({
+	method: 'get',
+	url: "/", 
             params: {
                 "warrant": "analyze me"
             }
@@ -98,14 +99,10 @@
     
     function saveSentences(){
         axios({
-          method: 'post',
-          url: baseUrl,
+          method: 'put',
+          url: "/",
           data: {
             warrant: "save this warrant"
-          },
-            headers: {
-            Accept: "*/*",
-            "Access-Control-Allow-Origin": "*"
           }
         })
         .then(function (res) {
@@ -115,6 +112,7 @@
           .catch(function (error) {
             // handle error
             console.log(error);
+            console.log(error.response)
           })
 }
 
