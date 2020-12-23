@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--warrant_3-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel='stylesheet' type='text/css'>
+    <link href="https://jinglescode.github.io/assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="https://jinglescode.github.io/assets/css/custom.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" as="style" onload="this.rel='stylesheet'">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-49548145-2"></script>
+    <meta property="og:title" content="Sentence Similarity with TensorFlow.js Sentence Encoder"/>
+    <meta property="og:description" content="Extract embeddings and group sentences with universal sentence encoder package from TensorFlow.js."/>    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script src="https://jinglescode.github.io/assets/js/materialize.min.js" type="text/javascript"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/universal-sentence-encoder"></script>
+     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h2>Are you smart enough to fill the reasoning gap in arguments?</h2>
+      <p>Everyday you see news of AI becoming better at humanlike interaction.</br> 
+      But it still lacks the ability to have meaningful discussion as it doesn't understand 
+      the hidden reasoning behind human arguments.</p>
+      <p>In this task our AI requires your creativity, logical thinking, and imaginative power! to <strong>fill that implicit reasoning gap</strong> and understand arguments better.</p>
+      
+      <p><h6><button type="button" class="btn btn-warning btn btn-primary btn-sm">Note</button> 
+      Help us to improve this HIT by giving us <d class="text-success font-weight-bold">your feedback</d> at the bottom of the page.</h6></p>
+      
+      <p><small>Dear Worker, thank you for your interest in our HITs! You are taking part in a large-scale research project
+      conducted by the NLP Lab of Tohoku University Japan.</small></p>            
+    </div>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="row">
+      <div class="col s4">
+        <h1><div class="card-panel blue lighten-2">Task</div></h1>
+      </div>
+      <div class="col s12">
+        <h2>Topic:{topic}</h2>
+        <span class="card-title">John's Argument: {claim} <br> Support-statement: {premise}</span>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="input-field col s12" style="height: 100px;">
+              <textarea id="input_sentences" class="materialize-textarea" data-length="120"></textarea>
+              <label for="input_sentences">Input your reasoning which connects John's argument to Support-statement</label>
+            </div>
+          </div>
+            <div class="col s12">
+              <button class="waves-effect waves-light btn" onclick="onClickAnalyzeSentences()">Analyse Sentence</button>
+              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i></button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
