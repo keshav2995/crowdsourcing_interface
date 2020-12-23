@@ -14,10 +14,10 @@ class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     warrant = db.Column(db.String, unique=True, nullable=False)
 
-def calculate(x):
+def calculate(warrant):
     """return quality score of the warrant"""
     
-    return {'score': 1}
+    return {'score': 1, 'warrant': warrant}
 
 @app.route('/', methods=['GET', 'POST'])
 def analyze():
