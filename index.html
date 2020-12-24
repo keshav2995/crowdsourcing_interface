@@ -67,6 +67,9 @@
               <button class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit
                 <i class="material-icons right">send</i></button>
             </div>
+	    <div class="col s12">
+		<p id="feed"></p>
+	    </div>
         </div>
       </div>
     </div>
@@ -82,12 +85,13 @@
 	method: 'get',
 	url: "/", 
             params: {
-                "warrant": "analyze me"
+                "warrant": $("#input_sentences").val()
             }
       })
       .then(function (res) {
         // handle success
         console.log(res.data);
+	$("#feed").text("score " + res.data.score);
       })
       .catch(function (error) {
         // handle error
@@ -102,18 +106,20 @@
         axios({
           method: 'get',
           url: "/save",
-          params: {warrant: "12save this"},
+          params: {warrant: $("#input_sentences").val()},
           data: {
-            warrant: "1save this warrant"
+            warrant: $("#input_sentences").val()
           }
         })
         .then(function (res) {
             // handle success
             console.log(res.data);
+            $("#feed").text(`id ${res.data.id}, warrant: ${res.data.warrant}`)
           })
           .catch(function (error) {
             // handle error
             console.log(error);
+	    $("#feed").text(error);
             console.log(error.response)
           })
 }
