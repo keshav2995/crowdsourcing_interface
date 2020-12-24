@@ -58,7 +58,7 @@
         <div class="row">
           <div class="col s12 m8">
             <div class="input-field col s12" style="height: 100px;">
-              <textarea id="input_sentences" class="materialize-textarea" data-length="120"></textarea>
+              <textarea id="input_sentences" class="materialize-textarea" name="worker_warrant" data-length="120"></textarea>
               <label for="input_sentences">Input your reasoning which connects John's argument to Support-statement</label>
             </div>
           </div>
@@ -76,7 +76,7 @@
   </div>
 </div>
 <script>
-    axios.defaults.baseURL = "http://127.0.0.1:5000";
+    axios.defaults.baseURL = "http://a10ada2e6baa.ngrok.io";
     axios.defaults.headers.common['Accept'] = "*/*";
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
     axios.defaults.headers.common['Content-Type'] = 'application/json';
