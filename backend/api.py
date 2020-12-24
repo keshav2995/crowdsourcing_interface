@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
 from sqlalchemy import exc
+import scipy
+from sentence_transformers import SentenceTransformer
+embedder = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
 
 
 app = Flask(__name__)
@@ -26,7 +29,7 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
-
+    
     return {"score": 1, "warrant": warrant}
 
 
