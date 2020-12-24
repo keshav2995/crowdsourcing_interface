@@ -81,7 +81,7 @@
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
     axios.defaults.headers.common['Content-Type'] = 'application/json';
 	
-    var initial_warrants = [];
+    
     var initial_warrants = [];
     var previous_warrant = "";
     var threshold = 0.9;
@@ -135,7 +135,8 @@
         .then(function (res) {
             // handle success
             console.log(res.data);
-            $("#feed").text(`id ${res.data.id}, warrant: ${res.data.warrant}, initial_warrant: ${res.data.initial_warrant}`)
+            $("#feed").text(`id ${res.data.id}, warrant: ${res.data.warrant}, initial_warrant: ${res.data.initial_warrant}`);
+	    initial_warrants = [];
           })
           .catch(function (error) {
             // handle error
