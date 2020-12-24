@@ -104,8 +104,8 @@
     
     function saveSentences(){
         axios({
-          method: 'get',
-          url: "/save",
+          method: 'put',
+          url: "/",
           params: {warrant: $("#input_sentences").val()},
           data: {
             warrant: $("#input_sentences").val()
@@ -118,8 +118,7 @@
           })
           .catch(function (error) {
             // handle error
-            console.log(error);
-	    $("#feed").text(error);
+	    $("#feed").text(error.response.data.error);
             console.log(error.response)
           })
 }

@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
+from sqlalchemy import exc
+
 
 app = Flask(__name__)
 app.config["CORS_ALWAYS_SEND"] = True
@@ -36,26 +38,24 @@ def analyze():
         score = calculate(warrant)  # analyze the warrant and return the score
         return jsonify(score)
     elif request.method == "PUT":
-        payload = request.json
-        warrant = Warrant(payload.get("warrant"))  # create the warrant db object
+        warrant = request.args.get(
+            "warrant", default="", type=str
+        )  # get the warrant to be analyzed
+        warrant = Warrant(warrant=warrant)  # create the warrant db object
         db.session.add(warrant)  # stage the warrant for saving
-        db.session.commit()  # save the warrant
-        return jsonify(warrant.to_dict())  # return the saved warrant
+        try:
+            db.session.commit()  # save the warrant
+        except exc.IntegrityError as e:
+            response = jsonify(
+                {"id": None, "warrant": None, "error": "warrant has to be unique"}
+            )
+            response.status_code = 500
+            return response
+        return jsonify(
+            {"id": warrant.id, "warrant": warrant.warrant}
+        )  # return the saved warrant
     else:
         return jsonify({"details": "welcome to the api"})
-
-
-@app.route("/save", methods=["GET", "POST", "PUT"])
-def save():
-    warrant = request.args.get(
-        "warrant", default="", type=str
-    )  # get the warrant to be analyzed
-    warrant = Warrant(warrant=warrant)  # create the warrant db object
-    db.session.add(warrant)  # stage the warrant for saving
-    db.session.commit()  # save the warrant
-    return jsonify(
-        {"id": warrant.id, "warrant": warrant.warrant}
-    )  # return the saved warrant
 
 
 if __name__ == "__main__":
