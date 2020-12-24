@@ -21,6 +21,7 @@ migrate = Migrate(app, db)
 class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     warrant = db.Column(db.String, unique=True, nullable=False)
+    initial_warrant = db.Column(db.Array(db.String), nullable=False)
 
 
 def calculate(warrant):
