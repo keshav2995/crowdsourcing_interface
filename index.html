@@ -89,7 +89,7 @@
     $( "#submitButton" ).prop( "disabled", true );
 	
     $("#input_sentences").on('change keyup paste', function(){
-	    console.log('changed', $("#input_sentences").val());
+	    $( "#submitButton" ).prop( "disabled", true );
     });
     
     function onClickAnalyzeSentences(){
