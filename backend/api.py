@@ -21,7 +21,7 @@ migrate = Migrate(app, db)
 class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     warrant = db.Column(db.String, unique=True, nullable=False)
-    initial_warrant = db.Column(db.Array(db.String), nullable=False)
+    initial_warrant = db.Column(db.Text, nullable=False)
 
 
 def calculate(warrant):
@@ -40,7 +40,8 @@ def analyze():
         return jsonify(score)
     elif request.method == "PUT":
         warrant = request.json
-        warrant = Warrant(warrant=warrant['warrant'])  # create the warrant db object
+        init_warrants = " [SEP] ".join(warrant['initial_warrants'])
+        warrant = Warrant(warrant=warrant['warrant'], init_warrants = init_warrants)  # create the warrant db object
         db.session.add(warrant)  # stage the warrant for saving
         try:
             db.session.commit()  # save the warrant
