@@ -82,9 +82,15 @@
     axios.defaults.headers.common['Content-Type'] = 'application/json';
 	
     var initial_warrants = [];
+    var previous_warrant = "";
+    var threshold = 0.9;
     
     function onClickAnalyzeSentences(){
-	initial_warrants.push($("#input_sentences").val());
+	var current_warrant = $("#input_sentences").val();
+	if(previous_warrant !== current_warrant){
+		initial_warrants.push(current_warrant);
+		previous_warrant = current_warrant;
+	}
         axios({
 	method: 'get',
 	url: "/", 
@@ -95,7 +101,13 @@
       .then(function (res) {
         // handle success
         console.log(res.data);
-	$("#feed").text("score " + res.data.score);
+	
+	if(res.data.score >= threshold){
+		$("#feed").text(`A matching warrant exists. score ${res.data.score}, matching warrant ${res.data.warrant}`);
+	}
+	else{
+		$("#feed").text(`This warrant is acceptable. score ${res.data.score}, matching warrant ${res.data.warrant}`);
+	}
       })
       .catch(function (error) {
         // handle error
