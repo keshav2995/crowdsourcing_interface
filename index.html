@@ -118,7 +118,12 @@
           })
           .catch(function (error) {
             // handle error
-	    $("#feed").text(error.response.data.error);
+	    if(error.response){
+		$("#feed").text(error.response.data.error);
+	    }
+	    else{
+		$("#feed").text(error);
+	   }
             console.log(error.response)
           })
 }
