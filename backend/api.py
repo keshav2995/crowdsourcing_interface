@@ -40,10 +40,8 @@ def analyze():
         score = calculate(warrant)  # analyze the warrant and return the score
         return jsonify(score)
     elif request.method == "PUT":
-        warrant = request.args.get(
-            "warrant", default="", type=str
-        )  # get the warrant to be analyzed
-        warrant = Warrant(warrant=warrant)  # create the warrant db object
+        warrant = request.json
+        warrant = Warrant(warrant=warrant['warrant'])  # create the warrant db object
         db.session.add(warrant)  # stage the warrant for saving
         try:
             db.session.commit()  # save the warrant
