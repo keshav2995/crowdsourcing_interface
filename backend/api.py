@@ -28,7 +28,7 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
-    warrant_kb = Warrant.query.all()
+    warrant_kb = [warrant.warrant for warrant in Warrant.query.all()]
     user_warrant = warrant
     warrant_kb_emb = embedder.encode([warrant_kb])
     user_warrant_emb = embedder.encode([user_warrant])
@@ -36,7 +36,7 @@ def calculate(warrant):
     dist = scipy.spatial.distance.cdist([user_warrant_emb], warrant_kb_emb, "cosine")[0]
     sim_score = 1 - dist
 
-    return {"score": 1, "warrant": warrant}
+    return {"score": sim_score, "warrant": warrant}
 
 
 @app.route("/", methods=["GET", "POST", "PUT"])
