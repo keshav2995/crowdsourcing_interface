@@ -41,7 +41,7 @@ def analyze():
     elif request.method == "PUT":
         warrant = request.json
         init_warrants = " [SEP] ".join(warrant['initial_warrants'])
-        warrant = Warrant(warrant=warrant['warrant'], init_warrant = init_warrants)  # create the warrant db object
+        warrant = Warrant(warrant=warrant['warrant'], initial_warrant = init_warrants)  # create the warrant db object
         db.session.add(warrant)  # stage the warrant for saving
         try:
             db.session.commit()  # save the warrant
