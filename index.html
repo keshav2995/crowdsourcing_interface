@@ -118,7 +118,7 @@
         .then(function (res) {
             // handle success
             console.log(res.data);
-            $("#feed").text(`id ${res.data.id}, warrant: ${res.data.warrant}`)
+            $("#feed").text(`id ${res.data.id}, warrant: ${res.data.warrant}, initial_warrant: ${res.data.initial_warrant}`)
           })
           .catch(function (error) {
             // handle error
