@@ -45,7 +45,7 @@ def analyze():
             db.session.commit()  # save the warrant
         except exc.IntegrityError as e:
             response = jsonify(
-                {"id": None, "warrant": None, "error": "warrant has to be unique"}
+                {"error": "warrant has to be unique"}
             )
             response.status_code = 403
             return response
