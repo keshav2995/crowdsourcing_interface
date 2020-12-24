@@ -3,7 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
 from sqlalchemy import exc
-
+from sentence_transformers import SentenceTransformer
+import scipy
+embedder = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
 
 app = Flask(__name__)
 app.config["CORS_ALWAYS_SEND"] = True
@@ -26,6 +28,13 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
+    warrant_kb = Warrant.query.all()
+    user_warrant = warrant
+    warrant_kb_emb = embedder.encode([warrant_kb])
+    user_warrant_emb = embedder.encode([user_warrant])
+
+    dist = scipy.spatial.distance.cdist([user_warrant_emb], warrant_kb_emb, "cosine")[0]
+    sim_score = 1 - dist
 
     return {"score": 1, "warrant": warrant}
 
