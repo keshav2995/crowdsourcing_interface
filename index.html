@@ -64,7 +64,7 @@
           </div>
             <div class="col s12">
               <button class="waves-effect waves-light btn" onclick="onClickAnalyzeSentences()">Analyse Sentence</button>
-              <button class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit
+              <button id="submitButton" class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit
                 <i class="material-icons right">send</i></button>
             </div>
 	    <div class="col s12">
@@ -85,6 +85,8 @@
     var initial_warrants = [];
     var previous_warrant = "";
     var threshold = 0.9;
+	
+    $( "#submitButton" ).prop( "disabled", true );
     
     function onClickAnalyzeSentences(){
 	var current_warrant = $("#input_sentences").val();
@@ -105,9 +107,11 @@
 	
 	if(res.data.score >= threshold){
 		$("#feed").text(`A matching warrant exists. score ${res.data.score}, matching warrant ${res.data.warrant}`);
+		$( "#submitButton" ).prop( "disabled", true );
 	}
 	else{
 		$("#feed").text(`This warrant is acceptable. score ${res.data.score}, matching warrant ${res.data.warrant}`);
+		$( "#submitButton" ).prop( "disabled", false );
 	}
       })
       .catch(function (error) {
