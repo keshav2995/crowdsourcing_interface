@@ -3,6 +3,7 @@
 <!--warrant_3-->
 <head>
     <meta charset="utf-8">
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -25,8 +26,7 @@
      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-
-<body>
+<crowd-form answer-format="flatten-objects">
 <div class="container">
   <div class="row">
     <div class="col s12">
@@ -53,8 +53,8 @@
         <h1><div class="card-panel blue lighten-2">Task</div></h1>
       </div>
       <div class="col s12">
-        <h2>Topic:{topic}</h2>
-        <span class="card-title">John's Argument: {claim} <br> Support-statement: {premise}</span>
+        <h2>Topic:${topic}</h2>
+        <span class="card-title">John's Argument: ${claim} <br> Support-statement: ${premise}</span>
         <div class="row">
           <div class="col s12 m8">
             <div class="input-field col s12" style="height: 100px;">
@@ -63,9 +63,8 @@
             </div>
           </div>
             <div class="col s12">
-              <button class="waves-effect waves-light btn" onclick="onClickAnalyzeSentences()">Analyse Sentence</button>
-              <button id="submitButton" class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit
-                <i class="material-icons right">send</i></button>
+              <button class="waves-effect waves-light btn" type="button" onclick="onClickAnalyzeSentences()">Analyse Sentence</button>
+              <button id="submitButton" class="btn waves-effect waves-light" type="submit" name="action" onclick="saveSentences()">Submit<i class="material-icons right">send</i></button>
             </div>
 	    <div class="col s12">
 		<p id="feed"></p>
@@ -155,5 +154,6 @@
 }
 
 </script>
-</body>
+</crowd-form>
+
 </html>
