@@ -3,10 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_migrate import Migrate
 from sqlalchemy import exc
+from sentence_transformers import SentenceTransformer, util
 import scipy
-from sentence_transformers import SentenceTransformer
+import torch
 embedder = SentenceTransformer('roberta-large-nli-stsb-mean-tokens')
-
 
 app = Flask(__name__)
 app.config["CORS_ALWAYS_SEND"] = True
@@ -29,8 +29,30 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
-    
-    return {"score": 1, "warrant": warrant}
+    # warrant_kb = [warrant.warrant for warrant in Warrant.query.all()]
+    warrant_kb = ['this is','Thhis is a apple']
+    # user_warrant = warrant
+    user_warrant = 'hello world'
+    # warrant_kb_emb = embedder.encode(warrant_kb)
+    # user_warrant_emb = embedder.encode([user_warrant])
+
+    # dist = scipy.spatial.distance.cdist(user_warrant_emb, warrant_kb_emb, "cosine")[0]
+    # sim_score = 1 - dist
+    # Corpus with warrants
+    corpus_embeddings = embedder.encode(warrant_kb, convert_to_tensor=True)
+    # Query sentences:
+    query = user_warrant
+    # Find the closest 5 sentences of the corpus for each query sentence based on cosine similarity
+    top_k = 1
+    query_embedding = embedder.encode(query, convert_to_tensor=True)
+    cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
+    cos_scores = cos_scores.cpu()
+    #We use torch.topk to find the highest 5 scores
+    top_results = torch.topk(cos_scores, k=top_k)
+    score = top_results[0][0].item() #edit
+    matching_warrant = warrant_kb[top_results[1][0].item()] # edit
+
+    return {"score": score, "warrant": matching_warrant}
 
 
 @app.route("/", methods=["GET", "POST", "PUT"])
