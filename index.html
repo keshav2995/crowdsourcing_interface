@@ -80,7 +80,11 @@
     axios.defaults.headers.common['Accept'] = "*/*";
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = "*";
     axios.defaults.headers.common['Content-Type'] = 'application/json';
+	
+    var initial_warrants = [];
+    
     function onClickAnalyzeSentences(){
+	initial_warrants.push($("#input_sentences").val());
         axios({
 	method: 'get',
 	url: "/", 
@@ -107,7 +111,8 @@
           method: 'put',
           url: "/",
           data: {
-            warrant: $("#input_sentences").val()
+            warrant: $("#input_sentences").val(),
+	    "initial_warrant": initial_warrants
           }
         })
         .then(function (res) {

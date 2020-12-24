@@ -21,7 +21,8 @@ migrate = Migrate(app, db)
 class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     warrant = db.Column(db.String, unique=True, nullable=False)
-    #warrant_initial = db.Column(db.String, unique=True, nullable=False)
+    initial_warrant = db.Column(db.Array(db.String), nullable=False)
+
 
 def calculate(warrant):
     """return quality score of the warrant"""
@@ -35,8 +36,6 @@ def analyze():
         warrant = request.args.get(
             "warrant", default="", type=str
         )  # get the warrant to be analyzed
-        # warrant_initial = Warrant(warrant_initial=warrant)
-        # db.session.add(warrant_inital) 
         score = calculate(warrant)  # analyze the warrant and return the score
         return jsonify(score)
     elif request.method == "PUT":
