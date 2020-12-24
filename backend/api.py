@@ -29,10 +29,10 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
-    # warrant_kb = [warrant.warrant for warrant in Warrant.query.all()]
-    warrant_kb = ['this is','Thhis is a apple']
-    # user_warrant = warrant
-    user_warrant = 'hello world'
+    warrant_kb = [warrant.warrant for warrant in Warrant.query.all()]
+    #warrant_kb = ['this is','Thhis is a apple']
+    user_warrant = warrant
+    # user_warrant = 'hello world'
     # warrant_kb_emb = embedder.encode(warrant_kb)
     # user_warrant_emb = embedder.encode([user_warrant])
 
