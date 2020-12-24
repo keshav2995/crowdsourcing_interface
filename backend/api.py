@@ -1,14 +1,19 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-
+from flask_migrate import Migrate
 
 app = Flask(__name__)
-CORS(app, send_wildcard=True)
+app.config["CORS_ALWAYS_SEND"] = True
+app.config["CORS_SEND_WILDCARD"] = True
+app.config['CORS_ORIGINS'] = ['null', '*']
+app.config['CORS_HEADERS'] = ['Content-Type']
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
+CORS(app)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///warrants.sqlite"
 db = SQLAlchemy(app)
-
+migrate = Migrate(app, db)
 
 class Warrant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,6 +43,15 @@ def analyze():
     else:
         return jsonify({"details": "welcome to the api"})
 
+@app.route("/save", methods=["GET", "POST", "PUT"])
+def save():
+        warrant = request.args.get(
+            "warrant", default="", type=str
+        )  # get the warrant to be analyzed
+        warrant = Warrant(warrant = warrant)  # create the warrant db object
+        db.session.add(warrant)  # stage the warrant for saving
+        db.session.commit()  # save the warrant
+        return jsonify({'id': warrant.id, 'warrant': warrant.warrant})  # return the saved warrant
 
 if __name__ == "__main__":
     app.run(debug=True)
