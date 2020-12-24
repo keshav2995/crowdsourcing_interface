@@ -87,6 +87,10 @@
     var threshold = 0.9;
 	
     $( "#submitButton" ).prop( "disabled", true );
+	
+    $("#input_sentences").on("change", function(){
+	    console.log($("#input_sentences").val());
+    });
     
     function onClickAnalyzeSentences(){
 	var current_warrant = $("#input_sentences").val();
