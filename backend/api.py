@@ -29,7 +29,7 @@ class Warrant(db.Model):
 
 def calculate(warrant):
     """return quality score of the warrant"""
-    warrant_kb = [warrant.warrant for warrant in Warrant.query.all()]
+    warrant_kb = [warrant.warrant for warrant in Warrant.query.all()] + ["hello"]
     #warrant_kb = ['this is','Thhis is a apple']
     user_warrant = warrant
     # user_warrant = 'hello world'
