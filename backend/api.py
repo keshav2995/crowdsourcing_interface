@@ -52,7 +52,7 @@ def analyze():
             response.status_code = 403
             return response
         return jsonify(
-            {"id": warrant.id, "warrant": warrant.warrant}
+            {"id": warrant.id, "warrant": warrant.warrant, "initial_warrant": warrant.initial_warrant}
         )  # return the saved warrant
     else:
         return jsonify({"details": "welcome to the api"})
