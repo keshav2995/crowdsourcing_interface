@@ -49,7 +49,7 @@ def analyze():
             response = jsonify(
                 {"id": None, "warrant": None, "error": "warrant has to be unique"}
             )
-            response.status_code = 500
+            response.status_code = 403
             return response
         return jsonify(
             {"id": warrant.id, "warrant": warrant.warrant}
